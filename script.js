@@ -17,8 +17,13 @@ const Gameboard = (function() {
             box.classList.add('box');
             box.setAttribute('id', `box-${index}`)
             gameBoard.appendChild(box);
-            const square = document.querySelector('.box');
         });
+        const boxes = document.querySelectorAll('.box');
+        boxes.forEach((box) => {
+            box.addEventListener('click', () => {
+                console.log('test');
+        })
+        })
     }
 
     return {
