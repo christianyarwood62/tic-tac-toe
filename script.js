@@ -24,6 +24,7 @@ const Gameboard = (function() {
         })
     }
 
+    // Updates the box when clicked with an icon
     const update = (boxIndex, value) => {
         board[boxIndex] = value;
         console.log(board);
@@ -41,6 +42,7 @@ const Gameboard = (function() {
 
 })();
 
+// Creates a player with a name and an icon (either X or O)
 const createPlayer = (name, icon) => {
     return {
         name,
@@ -67,7 +69,9 @@ const Gamecontroller = (() => {
 
     const handleClick = (event) => {
         let boxIndex = parseInt(event.target.id.split('-')[1]);
-        Gameboard.update(boxIndex, players[currentPlayerIndex].icon)
+        Gameboard.update(boxIndex, players[currentPlayerIndex].icon);
+
+        currentPlayerIndex = (currentPlayerIndex === 0) ? 1 : 0;
     }
     
     return {
