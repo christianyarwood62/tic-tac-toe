@@ -11,12 +11,13 @@ const Gameboard = (function() {
     // Renders the board by creating squares and adding them to the game background
     const renderBoard = () => {
         console.log(board);
-        board.forEach(element => {
+        board.forEach((element, index) => {
             const gameBoard = document.querySelector('.game-board');
-            console.log('test');
             const box = document.createElement('div');
             box.classList.add('box');
+            box.setAttribute('id', `box-${index}`)
             gameBoard.appendChild(box);
+            const square = document.querySelector('.box');
         });
     }
 
