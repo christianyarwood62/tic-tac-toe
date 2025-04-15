@@ -1,6 +1,6 @@
 // IIFE representing the state of the game board
 const Gameboard = (function() {
-    let board = [[], [], [], [], [], [], [], [], []];
+    let board = [[''], [''], [''], [''], [''], [''], [''], [''], ['']];
     // Creates a game background and adds to game container
     const createboardBackground = () => {
         const gameBoard = document.createElement('div');
@@ -10,33 +10,44 @@ const Gameboard = (function() {
     }
     // Renders the board by creating squares and adding them to the game background
     const renderBoard = () => {
-        console.log(board);
-        board.forEach((element, index) => {
+        board.forEach((icon, index) => {
             const gameBoard = document.querySelector('.game-board');
             const box = document.createElement('div');
+            box.textContent = icon;
             box.classList.add('box');
             box.setAttribute('id', `box-${index}`)
             gameBoard.appendChild(box);
         });
         const boxes = document.querySelectorAll('.box');
         boxes.forEach((box) => {
-            box.addEventListener('click', () => {
-                console.log('test');
+            box.addEventListener('click', Gamecontroller.handleClick)
         })
-        })
+    }
+
+    const update = (boxIndex, value) => {
+        board[boxIndex] = value;
+        console.log(board);
+        const gameBoard = document.querySelector('.game-board');
+        gameBoard.textContent = '';
+        renderBoard();
     }
 
     return {
         createboardBackground,
         renderBoard,
+        update,
     }
 
 
 })();
 
 const createPlayer = (name, icon) => {
-
+    return {
+        name,
+        icon
+    }
 }
+
 const Gamecontroller = (() => {
     let players = [];
     let currentPlayerIndex = 0;
@@ -53,9 +64,15 @@ const Gamecontroller = (() => {
         Gameboard.createboardBackground();
         Gameboard.renderBoard();
     }
+
+    const handleClick = (event) => {
+        let boxIndex = parseInt(event.target.id.split('-')[1]);
+        Gameboard.update(boxIndex, players[currentPlayerIndex].icon)
+    }
     
     return {
         start,
+        handleClick,
     }
 
 })();
