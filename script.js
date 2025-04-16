@@ -101,14 +101,20 @@ const Gamecontroller = (() => {
 
     // Creates 2 players and assigns them either X or O, then creates and displays a tic tac toe grid
     const start = () => {
+        const player1 = document.querySelector('#player-1').value;
+        const player2 = document.querySelector('#player-2').value;
         players = [
-            createPlayer(document.querySelector('#player-1').value, 'X'),
-            createPlayer(document.querySelector('#player-2').value, 'O')
+            createPlayer(player1.value, 'X'),
+            createPlayer(player2.value, 'O')
         ]
-        currentPlayerIndex = 0;
-        gameOver = false;
-        Gameboard.createboardBackground();
-        Gameboard.renderBoard();
+        if (player1 === '' || player2 === '') {
+            alert('Please fill in all the fields');
+        } else {
+            currentPlayerIndex = 0;
+            gameOver = false;
+            Gameboard.createboardBackground();
+            Gameboard.renderBoard();
+        }
     }
 
     // Event: when a cell is clicked, it places the players icon on it if the cell is empty.
@@ -116,8 +122,10 @@ const Gamecontroller = (() => {
     // Then the event checks if there is a winner. If there is no winner, it finally checks for a draw
     // where it displays an alert and restarts the game.
     const handleClick = (event) => {
+        event.preventDefault();
         let boxIndex = parseInt(event.target.id.split('-')[1]);
-
+        const player1 = document.querySelector('#player-1').value;
+        const player2 = document.querySelector('#player-2').value;
         if (Gameboard.getGameBoard()[boxIndex][0] !== "") {
             return;
         }
@@ -126,7 +134,7 @@ const Gamecontroller = (() => {
         
         if (Gameboard.checkWinStatus() === true) {
             gameOver = true;
-            alert(`Game over, Player ${currentPlayerIndex + 1} won!`);
+            alert(`Game over, Player ${player1} won!`);
             Gameboard.restartGame();
             gameOver = false;
         } else if (Gameboard.checkTieStatus() === true) {
@@ -136,8 +144,7 @@ const Gamecontroller = (() => {
             gameOver = false;
         }
         
-        
-
+        // Replace the current player with the next player
         currentPlayerIndex = (currentPlayerIndex === 0) ? 1 : 0;
     }
     
