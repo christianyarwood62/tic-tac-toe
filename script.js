@@ -73,6 +73,11 @@ const Gameboard = (function() {
         }
     }
 
+    const showCurrentPlayer = () => {
+        showTurnHeading = document.querySelector('#turn');
+        showTurnHeading.textContent = `It is player ${Gamecontroller.getCurrentPlayer()}'s turn`;
+    }
+
     return {
         createboardBackground,
         renderBoard,
@@ -81,6 +86,7 @@ const Gameboard = (function() {
         checkWinStatus,
         checkTieStatus,
         restartGame,
+        showCurrentPlayer,
     }
 
 })();
@@ -114,6 +120,7 @@ const Gamecontroller = (() => {
             gameOver = false;
             Gameboard.createboardBackground();
             Gameboard.renderBoard();
+            Gameboard.showCurrentPlayer();
         }
     }
 
@@ -138,17 +145,20 @@ const Gamecontroller = (() => {
         } else if (Gameboard.checkTieStatus() === true) {
             gameOver = true;
             alert('Tie game')
-            Gameboard.restartGame();
             gameOver = false;
         }
         
         // Replace the current player with the next player
         currentPlayerIndex = (currentPlayerIndex === 0) ? 1 : 0;
     }
+
+    const getCurrentPlayer = () => currentPlayerIndex;
     
     return {
         start,
         handleClick,
+        getCurrentPlayer,
+        getCurrentPlayer,
     }
 
 })();
