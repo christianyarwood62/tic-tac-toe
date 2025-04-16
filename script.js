@@ -34,6 +34,7 @@ const Gameboard = (function() {
 
     const getGameBoard = () => board;
 
+    // function that checks if a winning combination has been achieved
     const checkWinStatus = () => {
         winningGrids = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
         for (let i = 0; i < winningGrids.length; i++) {
@@ -46,9 +47,26 @@ const Gameboard = (function() {
                     return true;
             } 
         }
-        // return false;
     }
 
+    // Function that checks if all cells are filled with an icon 
+    const checkTieStatus = () => {
+        for (let i = 0; i < 8; i++) {
+            if ((Gameboard.getGameBoard()[0] === 'X' || Gameboard.getGameBoard()[0] === 'O')
+                && (Gameboard.getGameBoard()[1] === 'X' || Gameboard.getGameBoard()[1] === 'O')
+                && (Gameboard.getGameBoard()[2] === 'X' || Gameboard.getGameBoard()[2] === 'O')
+                && (Gameboard.getGameBoard()[3] === 'X' || Gameboard.getGameBoard()[3] === 'O')
+                && (Gameboard.getGameBoard()[4] === 'X' || Gameboard.getGameBoard()[4] === 'O')
+                && (Gameboard.getGameBoard()[5] === 'X' || Gameboard.getGameBoard()[5] === 'O')
+                && (Gameboard.getGameBoard()[6] === 'X' || Gameboard.getGameBoard()[6] === 'O')
+                && (Gameboard.getGameBoard()[7] === 'X' || Gameboard.getGameBoard()[7] === 'O')
+                && (Gameboard.getGameBoard()[8] === 'X' || Gameboard.getGameBoard()[8] === 'O')) {
+                    return true
+                }
+        }
+    }
+
+    // function that resets the game grid
     const restartGame = () => {
         for (let i = 0; i < Gameboard.getGameBoard().length; i++) {
             Gameboard.update(i, ['']);
@@ -61,6 +79,7 @@ const Gameboard = (function() {
         update,
         getGameBoard,
         checkWinStatus,
+        checkTieStatus,
         restartGame,
     }
 
@@ -74,6 +93,7 @@ const createPlayer = (name, icon) => {
     }
 }
 
+// IIFE for controlling events during the game
 const Gamecontroller = (() => {
     let players = [];
     let currentPlayerIndex = 0;
@@ -91,6 +111,10 @@ const Gamecontroller = (() => {
         Gameboard.renderBoard();
     }
 
+    // Event: when a cell is clicked, it places the players icon on it if the cell is empty.
+    // If the cell is occupied, a function stops the next player from placing their icon on it.
+    // Then the event checks if there is a winner. If there is no winner, it finally checks for a draw
+    // where it displays an alert and restarts the game.
     const handleClick = (event) => {
         let boxIndex = parseInt(event.target.id.split('-')[1]);
 
@@ -104,8 +128,16 @@ const Gamecontroller = (() => {
             gameOver = true;
             alert(`Game over, Player ${currentPlayerIndex + 1} won!`);
             Gameboard.restartGame();
+            gameOver = false;
+        } else if (Gameboard.checkTieStatus() === true) {
+            gameOver = true;
+            alert('Tie game')
+            Gameboard.restartGame();
+            gameOver = false;
         }
         
+        
+
         currentPlayerIndex = (currentPlayerIndex === 0) ? 1 : 0;
     }
     
