@@ -34,13 +34,27 @@ const Gameboard = (function() {
 
     const getGameBoard = () => board;
 
+    const checkWinStatus = () => {
+        winningGrids = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
+        for (let i = 0; i < winningGrids.length; i++) {
+            if ((getGameBoard()[winningGrids[i][0]] === 'X'
+                && getGameBoard()[winningGrids[i][1]] === 'X'
+                && getGameBoard()[winningGrids[i][2]] === 'X')
+                || (getGameBoard()[winningGrids[i][0]] === 'O'
+                && getGameBoard()[winningGrids[i][1]] === 'O'
+                && getGameBoard()[winningGrids[i][2]] === 'O')) {
+                    console.log('test');
+                }
+            }
+    }
+    
     return {
         createboardBackground,
         renderBoard,
         update,
         getGameBoard,
+        checkWinStatus,
     }
-
 
 })();
 
@@ -76,6 +90,8 @@ const Gamecontroller = (() => {
             return;
         }
         Gameboard.update(boxIndex, players[currentPlayerIndex].icon);
+
+        Gameboard.checkWinStatus()
         
         currentPlayerIndex = (currentPlayerIndex === 0) ? 1 : 0;
     }
