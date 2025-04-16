@@ -134,7 +134,6 @@ const Gamecontroller = (() => {
         if (Gameboard.checkWinStatus() === true) {
             gameOver = true;
             alert(`Game over, Player ${players[currentPlayerIndex].name} won!`);
-            Gameboard.restartGame();
             gameOver = false;
         } else if (Gameboard.checkTieStatus() === true) {
             gameOver = true;
