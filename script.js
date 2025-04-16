@@ -101,13 +101,13 @@ const Gamecontroller = (() => {
 
     // Creates 2 players and assigns them either X or O, then creates and displays a tic tac toe grid
     const start = () => {
-        const player1 = document.querySelector('#player-1').value;
-        const player2 = document.querySelector('#player-2').value;
+        const player1 = document.querySelector('#player-1');
+        const player2 = document.querySelector('#player-2');
         players = [
             createPlayer(player1.value, 'X'),
             createPlayer(player2.value, 'O')
         ]
-        if (player1 === '' || player2 === '') {
+        if (players[0].name === '' || players[1].name === '') {
             alert('Please fill in all the fields');
         } else {
             currentPlayerIndex = 0;
@@ -124,8 +124,7 @@ const Gamecontroller = (() => {
     const handleClick = (event) => {
         event.preventDefault();
         let boxIndex = parseInt(event.target.id.split('-')[1]);
-        const player1 = document.querySelector('#player-1').value;
-        const player2 = document.querySelector('#player-2').value;
+
         if (Gameboard.getGameBoard()[boxIndex][0] !== "") {
             return;
         }
@@ -134,7 +133,7 @@ const Gamecontroller = (() => {
         
         if (Gameboard.checkWinStatus() === true) {
             gameOver = true;
-            alert(`Game over, Player ${player1} won!`);
+            alert(`Game over, Player ${players[currentPlayerIndex].name} won!`);
             Gameboard.restartGame();
             gameOver = false;
         } else if (Gameboard.checkTieStatus() === true) {
