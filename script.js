@@ -47,13 +47,20 @@ const Gameboard = (function() {
                 }
             }
     }
-    
+
+    const restartGame = () => {
+        for (let i = 0; i < Gameboard.getGameBoard().length; i++) {
+            Gameboard.update(i, ['']);
+        }
+    }
+
     return {
         createboardBackground,
         renderBoard,
         update,
         getGameBoard,
         checkWinStatus,
+        restartGame,
     }
 
 })();
@@ -113,4 +120,11 @@ const gameBtns = (function() {
         const gameContainer = document.querySelector('.game-container');
             Gamecontroller.start();
     })
+
+    // Restart the game by resetting the grid
+    const restartGameBtn = document.querySelector('#reset-game');
+    restartGameBtn.addEventListener('click', () => {
+        Gameboard.restartGame();
+    })
+
 })();
