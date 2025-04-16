@@ -103,6 +103,7 @@ const Gamecontroller = (() => {
         if (Gameboard.checkWinStatus() === true) {
             gameOver = true;
             alert(`Game over, Player ${currentPlayerIndex + 1} won!`);
+            Gameboard.restartGame();
         }
         
         currentPlayerIndex = (currentPlayerIndex === 0) ? 1 : 0;
