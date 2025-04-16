@@ -27,16 +27,18 @@ const Gameboard = (function() {
     // Updates the box when clicked with an icon
     const update = (boxIndex, value) => {
         board[boxIndex] = value;
-        console.log(board);
         const gameBoard = document.querySelector('.game-board');
         gameBoard.textContent = '';
         renderBoard();
     }
 
+    const getGameBoard = () => board;
+
     return {
         createboardBackground,
         renderBoard,
         update,
+        getGameBoard,
     }
 
 
@@ -69,8 +71,12 @@ const Gamecontroller = (() => {
 
     const handleClick = (event) => {
         let boxIndex = parseInt(event.target.id.split('-')[1]);
-        Gameboard.update(boxIndex, players[currentPlayerIndex].icon);
 
+        if (Gameboard.getGameBoard()[boxIndex][0] !== "") {
+            return;
+        }
+        Gameboard.update(boxIndex, players[currentPlayerIndex].icon);
+        
         currentPlayerIndex = (currentPlayerIndex === 0) ? 1 : 0;
     }
     
@@ -87,6 +93,8 @@ const gameBtns = (function() {
     // The start new game button when clicks runs the start function
     const newGameBtn = document.querySelector('#start-new-game');
     newGameBtn.addEventListener('click', () => {
-    Gamecontroller.start();
-})
+        const gameBoard = document.querySelector('.game-board');
+        const gameContainer = document.querySelector('.game-container');
+            Gamecontroller.start();
+    })
 })();
