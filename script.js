@@ -43,9 +43,10 @@ const Gameboard = (function() {
                 || (getGameBoard()[winningGrids[i][0]] === 'O'
                 && getGameBoard()[winningGrids[i][1]] === 'O'
                 && getGameBoard()[winningGrids[i][2]] === 'O')) {
-                    console.log('test');
-                }
-            }
+                    return true;
+            } 
+        }
+        // return false;
     }
 
     const restartGame = () => {
@@ -98,7 +99,11 @@ const Gamecontroller = (() => {
         }
         Gameboard.update(boxIndex, players[currentPlayerIndex].icon);
 
-        Gameboard.checkWinStatus()
+        
+        if (Gameboard.checkWinStatus() === true) {
+            gameOver = true;
+            alert(`Game over, Player ${currentPlayerIndex + 1} won!`);
+        }
         
         currentPlayerIndex = (currentPlayerIndex === 0) ? 1 : 0;
     }
