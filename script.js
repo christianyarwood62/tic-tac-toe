@@ -80,6 +80,18 @@ const Gameboard = (function() {
         showTurnHeading.textContent = `It is player ${Gamecontroller.getCurrentPlayer()},'s turn`;
     }
 
+    const showForm = document.querySelector('#show-start-button');
+
+    const initialiseWebPage = () => {
+        addEventListener("DOMContentLoaded", () => {
+            showForm.showModal();
+        });
+    }
+
+    const closeForm = () => {
+        showForm.close();
+    }
+
 
     return {
         createboardBackground,
@@ -90,6 +102,8 @@ const Gameboard = (function() {
         checkTieStatus,
         restartGame,
         showCurrentPlayer,
+        initialiseWebPage,
+        closeForm,
     }
 
 })();
@@ -186,6 +200,7 @@ const gameBtns = (function() {
     // The start new game button when clicks runs the start function
     const newGameBtn = document.querySelector('#start-new-game');
     newGameBtn.addEventListener('click', () => {
+        Gameboard.closeForm();
         const gameBoard = document.querySelector('.game-board');
         const gameContainer = document.querySelector('.game-container');
             Gamecontroller.start();
@@ -199,3 +214,6 @@ const gameBtns = (function() {
     })
 
 })();
+
+// Show the form when the webpage initially loads
+Gameboard.initialiseWebPage();
