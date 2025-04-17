@@ -80,14 +80,20 @@ const Gameboard = (function() {
         showTurnHeading.textContent = `It is player ${Gamecontroller.getCurrentPlayer()},'s turn`;
     }
 
+    // Function to initialise the webpage when first loaded
     const showForm = document.querySelector('#show-start-button');
-
     const initialiseWebPage = () => {
         addEventListener("DOMContentLoaded", () => {
             showForm.showModal();
         });
     }
 
+    // Reload the webpage to ask for the dialog form
+    const reloadWebPage = () => {
+        location.reload();
+    }
+
+    // Close the initial dialog box asking for players name
     const closeForm = () => {
         showForm.close();
     }
@@ -104,6 +110,7 @@ const Gameboard = (function() {
         showCurrentPlayer,
         initialiseWebPage,
         closeForm,
+        reloadWebPage,
     }
 
 })();
@@ -197,22 +204,31 @@ const Gamecontroller = (() => {
 
 // IIFE for the buttons in the game
 const gameBtns = (function() {
-    // The start new game button when clicks runs the start function
+    // Starts a new game when the start new game button is clicked
     const newGameBtn = document.querySelector('#start-new-game');
     newGameBtn.addEventListener('click', () => {
+        // Closes the form and starts the game
         Gameboard.closeForm();
         const gameBoard = document.querySelector('.game-board');
         const gameContainer = document.querySelector('.game-container');
-            Gamecontroller.start();
+        Gamecontroller.start();
     })
 
-    // Restart the game by resetting the grid
+    // Restart the game with same players
     const restartGameBtn = document.querySelector('#reset-game');
     restartGameBtn.addEventListener('click', () => {
         Gameboard.restartGame();
-
     })
 
+    // Creates a restart button for new players to start
+    const resetGame = document.querySelector('#reset-game');
+    const newPlayersBtn = document.createElement('button');
+    newPlayersBtn.id = 'new-players-btn';
+    newPlayersBtn.textContent = 'New Players'
+    resetGame.after(newPlayersBtn);
+    newPlayersBtn.addEventListener('click', () => {
+        Gameboard.reloadWebPage();
+    })
 })();
 
 // Show the form when the webpage initially loads
