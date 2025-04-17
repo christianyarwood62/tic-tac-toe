@@ -22,6 +22,7 @@ const Gameboard = (function() {
         boxes.forEach((box) => {
             box.addEventListener('click', Gamecontroller.handleClick)
         })
+        
     }
 
     // Updates the box when clicked with an icon
@@ -70,13 +71,15 @@ const Gameboard = (function() {
     const restartGame = () => {
         for (let i = 0; i < Gameboard.getGameBoard().length; i++) {
             Gameboard.update(i, ['']);
+            Gamecontroller.gameOver = false;
         }
     }
 
     const showCurrentPlayer = () => {
         showTurnHeading = document.querySelector('#turn');
-        showTurnHeading.textContent = `It is player ${Gamecontroller.getCurrentPlayer()}'s turn`;
+        showTurnHeading.textContent = `It is player ${Gamecontroller.getCurrentPlayer()},'s turn`;
     }
+
 
     return {
         createboardBackground,
@@ -117,7 +120,7 @@ const Gamecontroller = (() => {
             alert('Please fill in all the fields');
         } else {
             currentPlayerIndex = 0;
-            gameOver = false;
+            Gamecontroller.gameOver = false;
             Gameboard.createboardBackground();
             Gameboard.renderBoard();
             Gameboard.showCurrentPlayer();
@@ -132,33 +135,47 @@ const Gamecontroller = (() => {
         event.preventDefault();
         let boxIndex = parseInt(event.target.id.split('-')[1]);
 
+
         if (Gameboard.getGameBoard()[boxIndex][0] !== "") {
             return;
         }
         Gameboard.update(boxIndex, players[currentPlayerIndex].icon);
-
         
         if (Gameboard.checkWinStatus() === true) {
-            gameOver = true;
+            Gamecontroller.gameOver = true;
             alert(`Game over, Player ${players[currentPlayerIndex].name} won!`);
-            gameOver = false;
         } else if (Gameboard.checkTieStatus() === true) {
-            gameOver = true;
+            Gamecontroller.gameOver = true;
             alert('Tie game')
-            gameOver = false;
         }
         
+        if (Gamecontroller.gameOver === true) {
+            const boxes = document.querySelectorAll('.box');
+            boxes.forEach((box) => {
+                box.removeEventListener('click', Gamecontroller.handleClick)
+            })
+        }
         // Replace the current player with the next player
         currentPlayerIndex = (currentPlayerIndex === 0) ? 1 : 0;
+        Gameboard.showCurrentPlayer();
     }
 
-    const getCurrentPlayer = () => currentPlayerIndex;
+    const getCurrentPlayer = () => players[currentPlayerIndex].name;
     
+    const resetPlayerNames = () => {
+        const player1 = document.querySelector('#player-1');
+        const player2 = document.querySelector('#player-2');
+        players = [
+            createPlayer(player1.value, 'X'),
+            createPlayer(player2.value, 'O')
+        ];
+    }
     return {
         start,
         handleClick,
         getCurrentPlayer,
         getCurrentPlayer,
+        gameOver,
     }
 
 })();
@@ -178,6 +195,7 @@ const gameBtns = (function() {
     const restartGameBtn = document.querySelector('#reset-game');
     restartGameBtn.addEventListener('click', () => {
         Gameboard.restartGame();
+
     })
 
 })();
