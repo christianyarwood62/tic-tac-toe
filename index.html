@@ -7,16 +7,26 @@
     <link rel = 'stylesheet' href = './styles.css'>
 </head>
 <body>
-    <dialog id="show-start-button">
-        <button id="start-new-game">Start a new game</button>
-        <label for="player-1">Player 1:</label>
-        <input type="text" id="player-1">
-        <label for="player-2">Player 2:</label>
-        <input type="text" id="player-2">
-    </dialog>
-    <button id="reset-game">Reset game</button>
-    <h1 id="turn"></h1>
-    <div class="game-container">
+    <div class="background">
+        <!-- Using common classes to minimize redundancy -->
+        <span class="ball"></span>
+        <span class="ball"></span>
+        <span class="ball"></span>
+        <span class="ball"></span>
+        <span class="ball"></span>
+        <span class="ball"></span>
+        <h1>Tic Tac Toe</h1>
+        <dialog id="show-start-button">
+            <button id="start-new-game">Start a new game</button>
+            <label for="player-1">Player 1:</label>
+            <input type="text" id="player-1">
+            <label for="player-2">Player 2:</label>
+            <input type="text" id="player-2">
+        </dialog>
+        <button id="reset-game">Reset game</button>
+
+        <h2 id="turn"></h2>
+        <div class="game-container"></div>
     </div>
 </body>
 <script src="script.js"></script>
