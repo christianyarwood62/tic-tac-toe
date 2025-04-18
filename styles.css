@@ -26,6 +26,7 @@
 
 body {
     background-color: red;
+    text-decoration-color: red;
 }
 
 @keyframes move {
@@ -34,6 +35,10 @@ body {
     }
   }
   
+  .foreground {
+    position: relative;
+    z-index: 1;
+  }
   .background {
     position: fixed;
     width: 100vw;
