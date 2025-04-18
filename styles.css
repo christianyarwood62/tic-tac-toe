@@ -24,9 +24,9 @@
     align-items: center;
 }
 
-body {
-    background-color: red;
-    text-decoration-color: red;
+h1, h2 {
+    text-align: center;
+    color:blanchedalmond
 }
 
 @keyframes move {
@@ -39,6 +39,7 @@ body {
     position: relative;
     z-index: 1;
   }
+
   .background {
     position: fixed;
     width: 100vw;
