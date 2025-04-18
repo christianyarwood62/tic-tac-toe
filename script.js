@@ -164,6 +164,7 @@ const Gamecontroller = (() => {
             Gameboard.renderBoard();
             Gameboard.closeForm();
             Gameboard.showCurrentPlayer();
+            Gameboard.displayBtns();
         }
     }
 
@@ -227,7 +228,6 @@ const gameBtns = (function() {
     const newGameBtn = document.querySelector('#start-new-game');
     newGameBtn.addEventListener('click', () => {
             Gamecontroller.start();
-            Gameboard.displayBtns();
     })
 
     // Restart the game with same players
