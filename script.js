@@ -85,6 +85,10 @@ const Gameboard = (function() {
     const initialiseWebPage = () => {
         addEventListener("DOMContentLoaded", () => {
             showForm.showModal();
+            const resetBtn = document.querySelector('#reset-game');
+            const newPlayersBtn = document.querySelector('#new-players-btn');
+            resetBtn.style.display = 'none';
+            newPlayersBtn.style.display = 'none';
         });
     }
 
@@ -98,6 +102,20 @@ const Gameboard = (function() {
         showForm.close();
     }
 
+    const displayBtns = () => {
+        const resetBtn = document.querySelector('#reset-game');
+        const newPlayersBtn = document.querySelector('#new-players-btn');
+        if (resetBtn.style.display === "none") {
+            resetBtn.style.display = "block";
+        } else {
+            resetBtn.style.display = "none";
+        };
+        if (newPlayersBtn.style.display === "none") {
+            newPlayersBtn.style.display = "block";
+        } else {
+            newPlayersBtn.style.display = "none";
+        };
+    };
 
     return {
         createboardBackground,
@@ -111,6 +129,7 @@ const Gameboard = (function() {
         initialiseWebPage,
         closeForm,
         reloadWebPage,
+        displayBtns,
     }
 
 })();
@@ -208,6 +227,7 @@ const gameBtns = (function() {
     const newGameBtn = document.querySelector('#start-new-game');
     newGameBtn.addEventListener('click', () => {
             Gamecontroller.start();
+            Gameboard.displayBtns();
     })
 
     // Restart the game with same players
@@ -229,3 +249,4 @@ const gameBtns = (function() {
 
 // Show the form when the webpage initially loads
 Gameboard.initialiseWebPage();
+
