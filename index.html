@@ -8,6 +8,13 @@
 </head>
 
 <body>
+    <dialog id="show-start-button">
+        <button id="start-new-game">Start a new game</button>
+        <label for="player-1">Player 1:</label>
+        <input type="text" id="player-1">
+        <label for="player-2">Player 2:</label>
+        <input type="text" id="player-2">
+    </dialog>
     <div class="background">
         <span class="ball"></span>
         <span class="ball"></span>
@@ -18,16 +25,11 @@
     </div>
     <div class="foreground">
         <h1>Tic Tac Toe</h1>
-        <dialog id="show-start-button">
-            <button id="start-new-game">Start a new game</button>
-            <label for="player-1">Player 1:</label>
-            <input type="text" id="player-1">
-            <label for="player-2">Player 2:</label>
-            <input type="text" id="player-2">
-        </dialog>
-        <button id="reset-game">Reset game</button>
+        <div class="game-container">
+            
+        </div>
         <h2 id="turn"></h2>
-        <div class="game-container"></div>
+        <button id="reset-game">Reset game</button>
     </div>
 </body>
 
