@@ -141,9 +141,9 @@ const Gamecontroller = (() => {
             alert('Please fill in all the fields');
         } else {
             currentPlayerIndex = 0;
-            Gamecontroller.gameOver = false;
             Gameboard.createboardBackground();
             Gameboard.renderBoard();
+            Gameboard.closeForm();
             Gameboard.showCurrentPlayer();
         }
     }
@@ -207,11 +207,7 @@ const gameBtns = (function() {
     // Starts a new game when the start new game button is clicked
     const newGameBtn = document.querySelector('#start-new-game');
     newGameBtn.addEventListener('click', () => {
-        // Closes the form and starts the game
-        Gameboard.closeForm();
-        const gameBoard = document.querySelector('.game-board');
-        const gameContainer = document.querySelector('.game-container');
-        Gamecontroller.start();
+            Gamecontroller.start();
     })
 
     // Restart the game with same players
